@@ -14,11 +14,7 @@ pipeline {
                  stage('Test') {
                  steps {
                        echo "Hello"
-		       bat """
-   			cd C:\Users\Gajanan\Downloads\FMC_API_Test
-			echo Test is running on pipeline
-			newman run FMC_API.postman_collection.json -e dev.postman_environment.json
-  			"""			
+		       cmd_exec('run_api.bat')		
                  }
                  }
                  stage('Deploy') {
@@ -36,4 +32,9 @@ pipeline {
                            }
                            }
               }
+
+
+}
+def cmd_exec(command) {
+    return bat(returnStdout: true, script: "${command}").trim()
 }
