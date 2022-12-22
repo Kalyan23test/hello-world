@@ -12,13 +12,13 @@ pipeline {
                  }
                  }
                  stage('Test') {
-                 when {
-                       not {
-                            branch "Build is in testing"
-                       }
-                 }
                  steps {
                        echo "Hello"
+		       bat """
+   			cd C:\Users\Gajanan\Downloads\FMC_API_Test
+			echo Test is running on pipeline
+			newman run FMC_API.postman_collection.json -e dev.postman_environment.json
+  			"""			
                  }
                  }
                  stage('Deploy') {
