@@ -1,0 +1,39 @@
+pipeline {
+         agent any
+         stages {
+                 stage('Code-Checking') {
+                 steps {
+                     echo 'Hi, this is code checking'
+                 }
+                 }
+                 stage('build') {
+                 steps {
+                    echo 'Hi, this is build state'
+                 }
+                 }
+                 stage('Test') {
+                 when {
+                       not {
+                            branch "Build is in testing"
+                       }
+                 }
+                 steps {
+                       echo "Hello"
+                 }
+                 }
+                 stage('Deploy') {
+                 parallel { 
+                            stage('Unit Test') {
+                           steps {
+                                echo "Running the unit test..."
+                           }
+                           }
+                            stage('Integration test') {
+                               steps {
+                                echo "Running the integration test..."
+                              }
+                           }
+                           }
+                           }
+              }
+}
