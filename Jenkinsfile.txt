@@ -1,36 +1,23 @@
 pipeline {
          agent any
          stages {
-                 stage('Code-Checking') {
-                 steps {
-                     echo 'Hi, this is code checking'
-                 }
-                 }
-                 stage('build') {
+                 stage('Maven build') {
                  steps {
                     echo 'Hi, this is build state'
                  }
                  }
-                 stage('Test') {
+              	 stage('Deploy') {
+			steps {
+                    	echo 'Hi, this is code deployment block'
+                 }
+		}
+		stage('Test') {
                  steps {
-                       echo "Hello"
+                       echo "API Automation testing started.."
 		       cmd_exec('run_api.bat')		
                  }
                  }
-                 stage('Deploy') {
-                 parallel { 
-                            stage('Unit Test') {
-                           steps {
-                                echo "Running the unit test..."
-                           }
-                           }
-                            stage('Integration test') {
-                               steps {
-                                echo "Running the integration test..."
-                              }
-                           }
-                           }
-                           }
+                 
               }
 
 
